@@ -1,0 +1,22 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Dados simulados
+datas = pd.date_range(start="2023-01-01", periods=5)
+precos = [16500, 16800, 17050, 16900, 17200]
+trends = [35, 40, 50, 48, 52]
+
+# Criar gráfico
+plt.figure(figsize=(10, 6))
+plt.plot(datas, precos, label='Preço do Bitcoin (USD)', marker='o', color='orange')
+plt.plot(datas, trends, label='Google Trends: "Bitcoin"', marker='s', color='blue')
+plt.title("Preço do Bitcoin vs Interesse de Busca (Google Trends)", fontsize=14)
+plt.xlabel("Data")
+plt.ylabel("Valor")
+plt.grid(True, linestyle='--', alpha=0.6)
+plt.legend()
+plt.tight_layout()
+
+# Salvar a imagem
+plt.savefig("visuals/visuals_bitcoin_trends.png")
+plt.show()
