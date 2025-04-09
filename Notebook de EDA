@@ -1,0 +1,29 @@
+# Imports
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Leitura dos dados tratados
+df = pd.read_csv("../data/processed/dados_tratados.csv", parse_dates=["date"])
+
+# Cálculo de volatilidade diária (variação percentual)
+df["retorno_pct"] = df["price"].pct_change() * 100
+df["volatilidade_7d"] = df["retorno_pct"].rolling(window=7).std()
+
+# Gráfico de preço e Google Trends
+plt.figure(figsize=(14,6))
+plt.plot(df["date"], df["price"], label="Preço Bitcoin")
+plt.twinx()
+plt.plot(df["date"], df["google_trends_score"], label="Google Trends", color="orange")
+plt.title("Preço vs Interesse (Google Trends)")
+plt.legend()
+plt.show()
+
+# Correlação
+correlacao = df[["retorno_pct", "google_trends_score"]].corr()
+sns.heatmap(correlacao, annot=True, cmap="coolwarm")
+plt.title("Correlação entre Retorno e Interesse")
+plt.show()
+
+# Análise de momentos extremos
+df[df["google_trends_score"] > 80].sort_values("google_trends_score", ascending=False).head()
