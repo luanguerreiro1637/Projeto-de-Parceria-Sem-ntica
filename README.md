@@ -24,3 +24,8 @@ Painel interativo no Looker Studio:
 - Jupyter Notebook
 - Looker Studio
 - GitHub
+
+- instruções de uso no README
+python scripts/coleta_preco_cripto.py
+python scripts/coleta_google_trends.py
+python scripts/trata_dados.py
